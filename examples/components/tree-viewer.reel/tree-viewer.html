@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- <copyright>
+ This file contains proprietary software owned by Motorola Mobility, Inc.<br/>
+ No rights, expressed or implied, whatsoever to this software are provided by Motorola Mobility, Inc. hereunder.<br/>
+ (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
+ </copyright> -->
+<html>
+<head>
+    <title>Tree Viewer</title>
+    <link rel="stylesheet" href="tree-viewer.css">
+    <script type="text/montage-serialization">{
+        "owner": {
+            "properties": {
+                "element": {"#": "tree"}
+            },
+            "bindings": {
+                "selectedData": {"<-": "@dataController.selectedObjects.0"}
+            }
+        },
+
+        "dataController": {
+            "prototype": "montage/ui/controller/array-controller",
+            "bindings": {
+                "content": {"<-": "@owner.data"}
+            }
+        },
+
+        "repetition": {
+            "prototype": "montage/ui/repetition.reel",
+            "properties": {
+                "element": {"#": "repetition"},
+                "contentController": {"@": "dataController"},
+                "isSelectionEnabled": true
+            }
+        },
+
+        "typeConverter": {
+            "object": "components/type-converter"
+        },
+
+        "substitution": {
+            "prototype": "montage/ui/substitution.reel",
+            "properties": {
+                "element": {"#": "substitution"},
+                "switchComponents": {
+                    "leaf": {"@": "leaf"},
+                    "branch": {"#": "branch"}
+                }
+            },
+            "bindings": {
+                "switchValue": {"<-": "@repetition.objectAtCurrentIteration", "converter": {"@": "typeConverter"}}
+            }
+        },
+
+        "leaf": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "leaf"},
+                "identifier": "label"
+            },
+            "bindings": {
+                "value": {"<-": "@repetition.objectAtCurrentIteration.label"}
+            }
+        },
+
+        "children": {
+            "prototype": "components/tree-viewer.reel",
+            "properties": {
+                "element": {"#": "children"}
+            },
+            "bindings": {
+                "delegate": {"<-": "@owner.delegate"},
+                "data": {"<-": "@repetition.objectAtCurrentIteration.children"},
+                "isVisible": {"<-": "@branchExpandButton.pressed"}
+            }
+        },
+
+        "branchLabel": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "branch-label"},
+                "identifier": "label"
+            },
+            "bindings": {
+                "value": {"<-": "@repetition.objectAtCurrentIteration.label"}
+            }
+        },
+
+        "branchExpandButton": {
+            "prototype": "montage/ui/toggle-button.reel",
+            "properties": {
+                "element": {"#": "branch-expand"},
+                "unpressedLabel": "[+]",
+                "pressedLabel": "[-]"
+            }
+        }
+    }</script>
+</head>
+<body>
+    <div data-montage-id="tree">
+        <div data-montage-id="repetition">
+            <div data-montage-id="substitution">
+                <span data-montage-id="leaf" class="montage-tree-viewer-leaf montage-tree-viewer-label"></span>
+                <div data-montage-id="branch">
+                    <span data-montage-id="branch-expand" class="montage-tree-viewer-branch-expand">[+]</span>
+                    <span data-montage-id="branch-label" class="montage-tree-viewer-label"></span>
+                    <div data-montage-id="children" class="montage-tree-viewer-branch collapsed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

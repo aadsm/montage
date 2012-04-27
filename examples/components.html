@@ -10,10 +10,30 @@
     <title>Example Components</title>
     <script src="../montage.js"></script>
     <script type="text/montage-serialization">{
-        "component": {
+        "timeSince": {
             "prototype": "montage/examples/components/time-since.reel",
             "properties": {
                 "element": {"#": "time-since"}
+            }
+        },
+
+        "treeViewer": {
+            "prototype": "components/tree-viewer.reel",
+            "properties": {
+                "element": {"#": "tree-viewer"},
+                "data": [
+                    {"label": "label1"},
+                    {"label": "label2"},
+                    {"label": "label3"},
+                    {"label": "label4", "children": [
+                        {"label": "label4_1"},
+                        {"label": "label4_2"},
+                        {"label": "label4_3", "children": [
+                            {"label": "label4_3_1"},
+                            {"label": "label4_3_2"}
+                        ]}
+                    ]}
+                ]
             }
         }
     }</script>
@@ -35,6 +55,16 @@
                 <dd>starting time, same value as the Date constructor</dd>
             </dl>
             <span data-montage-id="time-since"></span>
+        </li>
+        <li>
+            <h2>TreeViewer</h2>
+            <dl class="properties">
+                <dt>data</dt>
+                <dd>Array of <code>dataItem</code>'s, this object is defined as follow: <code>{label: "label", [children: &lt;dataItem&gt;+], [data: &lt;object&gt;]}</code></dd>
+                <dt>delegate</dt>
+                <dd>object that can implement <code>treeItemSelected(data)</code></dd>
+            </dl>
+            <div data-montage-id="tree-viewer"></div>
         </li>
     </ul>
 </body>
