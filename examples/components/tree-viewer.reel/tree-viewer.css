@@ -1,0 +1,18 @@
+.montage-tree-viewer-leaf {
+    padding-left: 23px;
+}
+.montage-tree-viewer-branch {
+    padding-left: 15px;
+}
+
+.montage-tree-viewer-branch-expand {
+    cursor: pointer;
+}
+
+.montage-tree-viewer-branch.collapsed {
+    display: none;
+}
+
+.montage-tree-viewer-label {
+    cursor: pointer;
+}
