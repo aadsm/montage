@@ -17,7 +17,8 @@ var Montage = require("montage").Montage,
     logger = require("core/logger").logger("repetition"),
     Gate = require("core/gate").Gate,
     ChangeNotification = require("core/change-notification").ChangeNotification,
-    PropertyChangeNotification = require("core/change-notification").PropertyChangeNotification;
+    PropertyChangeNotification = require("core/change-notification").PropertyChangeNotification,
+    ComponentTreeInspector = require("ui/component-tree-inspector.reel").ComponentTreeInspector;
 
 var FakeObjects = Montage.create(Object.prototype, {
     _repetition: {value: null},
@@ -1544,3 +1545,9 @@ var Repetition = exports.Repetition = Montage.create(Component, /** @lends modul
         }
     }}
 });
+
+var RepetitionInspector = require("ui/repetition-inspector.reel").RepetitionInspector;
+
+setTimeout(function() {
+    ComponentTreeInspector.registerComponent(Repetition, RepetitionInspector.create());
+}, 0);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- <copyright>
+ This file contains proprietary software owned by Motorola Mobility, Inc.<br/>
+ No rights, expressed or implied, whatsoever to this software are provided by Motorola Mobility, Inc. hereunder.<br/>
+ (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
+ </copyright> -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Repetition Inspector</title>
+    <script type="text/montage-serialization">{
+        "owner": {
+            "prototype": "montage/ui/repetition-inspector.reel",
+            "properties": {
+                "element": {"#": "repetition-inspector"}
+            }
+        },
+        
+        "iterations": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "iterations"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.iterations"}
+            }
+        },
+        
+        "iterationTemplate": {
+            "prototype": "montage/ui/textarea.reel",
+            "properties": {
+                "element": {"#": "iterationTemplate"}
+            },
+            "bindings": {
+                "textContent": {"<-": "@owner.template"}
+            }
+        }
+    }</script>
+</head>
+<body>
+    <div data-montage-id="repetition-inspector">
+        <hr>
+        Repetition Inspector
+        
+        <p>
+            Iterations: <span data-montage-id="iterations"></span>
+        </p>
+        <p>
+            Template:<br>
+            <textarea data-montage-id="iterationTemplate" style="font-family: courier; width: 100%; min-height: 310px"></textarea>
+        </p>
+    </div>
+</body>
+</html>
