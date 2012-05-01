@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- <copyright>
+ This file contains proprietary software owned by Motorola Mobility, Inc.<br/>
+ No rights, expressed or implied, whatsoever to this software are provided by Motorola Mobility, Inc. hereunder.<br/>
+ (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
+ </copyright> -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Component Tree Inspector</title>
+    <script type="text/montage-serialization">{
+        "owner": {
+            "prototype": "montage/ui/component-tree-inspector.reel",
+            "properties": {
+                "element": {"#": "component-tree-inspector"},
+                "panel": {"@": "panel"}
+            }
+        },
+        
+        "tree": {
+            "prototype": "components/tree-viewer.reel",
+            "properties": {
+                "element": {"#": "component-tree-panel"},
+                "delegate": {"@": "owner"}
+            },
+            "bindings": {
+                "data": {"<-": "@owner.componentTree"}
+            }
+        },
+        
+        "panel": {
+            "prototype": "montage/ui/slot.reel",
+            "properties": {
+                "element": {"#": "component-panel"}
+            }
+        }
+    }</script>
+    <style>
+        .montage-component-tree-inspector {
+            border: 1px solid rgba(15,15,15,0.4);
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            -webkit-border-radius: 5px;
+            color: #dddddd;
+            font-family: "Lucida Grande","Lucida Sans", sans;
+            background:-webkit-gradient(linear, left top, left bottom, from(rgba(15,15,15,0.75)), to(rgba(15,15,15,0.95)) );
+            -webkit-box-shadow: 0 0 15px rgba(0,0,0,.3);
+            min-width: 250px;
+            padding: 5px;
+            z-index: 1000;
+        }
+        
+        .montage-component-tree-inspector h4 {
+            margin-top: 0px;
+        }
+        
+        .component-tree-panel .montage-tree-viewer-label:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div data-montage-id="component-tree-inspector" class="montage-component-tree-inspector">
+        <h4>Component Tree Inspector</h4>
+        <div data-montage-id="component-tree-panel" class="component-tree-panel"></div>
+        <div data-montage-id="component-panel"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- <copyright>
+ This file contains proprietary software owned by Motorola Mobility, Inc.<br/>
+ No rights, expressed or implied, whatsoever to this software are provided by Motorola Mobility, Inc. hereunder.<br/>
+ (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
+ </copyright> -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Component Inspector</title>
+    <script type="text/montage-serialization">{
+        "owner": {
+            "prototype": "montage/ui/component-inspector.reel",
+            "properties": {
+                "element": {"#": "component-inspector"},
+                "componentHighlighter": {"#": "component-highlighter"}
+            }
+        },
+        
+        "bindings": {
+            "prototype": "montage/ui/repetition.reel",
+            "properties": {
+                "element": {"#": "bindings"}
+            },
+            "bindings": {
+                "objects": {"<-": "@owner.bindings"}
+            }
+        },
+        
+        "leftSide": {
+            "prototype": "montage/ui/button.reel",
+            "properties": {
+                "element": {"#": "leftSide"}
+            },
+            "bindings": {
+                "label": {"<-": "@bindings.objectAtCurrentIteration.leftSide"}
+            },
+            "listeners": [{
+                "type": "action",
+                "listener": {"@": "owner"},
+                "capture": false
+            }]
+        },
+        
+        "direction": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "direction"}
+            },
+            "bindings": {
+                "value": {"<-": "@bindings.objectAtCurrentIteration.direction"}
+            }
+        },
+        
+        "rightSide": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "rightSide"}
+            },
+            "bindings": {
+                "value": {"<-": "@bindings.objectAtCurrentIteration.rightSide"}
+            }
+        }
+    }</script>
+    <style>
+    .montage-component-inspector .leftSide {
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+    
+    .montage-component-inspector-highlighter {
+        border: 1px solid red;
+        z-index: 2000;
+    }
+    </style>
+</head>
+<body>
+    <div data-montage-id="component-inspector" class="montage-component-inspector">
+        <hr>
+        Component Inspector
+        
+        <p>
+            Bindings:
+            <ul data-montage-id="bindings">
+                <li><span data-montage-id="leftSide" class="leftSide"></span> <code><span data-montage-id="direction"></span> <span data-montage-id="rightSide"></span></code></li>
+            </ul>
+        </p>
+        <div data-montage-id="component-highlighter" class="montage-component-inspector-highlighter"></div>
+    </div>
+</body>
+</html>
