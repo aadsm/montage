@@ -16,6 +16,7 @@ var Montage = require("montage").Montage,
     Template = require("ui/template").Template,
     logger = require("core/logger").logger("repetition"),
     Gate = require("core/gate").Gate,
+    ComponentTreeInspector = require("ui/component-tree-inspector.reel").ComponentTreeInspector,
     ChangeTypeModification = require("core/event/mutable-event").ChangeTypes.MODIFICATION;
 /**
  @class module:"montage/ui/repetition.reel".Repetition
@@ -1239,3 +1240,9 @@ var Repetition = exports.Repetition = Montage.create(Component, /** @lends modul
         }
     }}
 });
+
+var RepetitionInspector = require("ui/repetition-inspector.reel").RepetitionInspector;
+
+setTimeout(function() {
+    ComponentTreeInspector.registerComponent(Repetition, RepetitionInspector.create());
+}, 0);
