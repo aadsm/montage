@@ -5,7 +5,7 @@
  </copyright> */
 
 var Montage = require("montage").Montage,
-    Component = require("montage/ui/component").Component;
+    Component = require("ui/component").Component;
 
 var TreeViewer = exports.TreeViewer = Montage.create(Component, {
     data: {
