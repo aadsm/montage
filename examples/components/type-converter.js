@@ -4,7 +4,7 @@
  (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 var Montage = require("montage").Montage;
-var Converter = require('montage/core/converter/converter').Converter;
+var Converter = require('core/converter/converter').Converter;
 
 exports.TypeConverter = Montage.create(Converter, {
     convert: {value: function(value) {
