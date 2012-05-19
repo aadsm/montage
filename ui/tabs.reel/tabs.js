@@ -4,13 +4,13 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/tabs.reel"
+	@module "ui/tabs.reel"
     @requires montage/core/core
     @requires montage/ui/component
-    @requires "montage/ui/repetition.reel"
-    @requires "montage/ui/substitution.reel"
-    @requires "montage/ui/dynamic-text.reel"
-    @requires "montage/ui/image.reel"
+    @requires "ui/repetition.reel"
+    @requires "ui/substitution.reel"
+    @requires "ui/dynamic-text.reel"
+    @requires "ui/image.reel"
     @requires montage/core/uuid
 */
 var Montage = require("montage").Montage,
@@ -22,10 +22,10 @@ var Montage = require("montage").Montage,
     Uuid = require("core/uuid").Uuid;
 
 /**
-    @class module:"montage/ui/tabs.reel".Tabs
+    @class module:"ui/tabs.reel".Tabs
 */
 
-var Tabs = exports.Tabs = Montage.create(Component, /** @lends module:"montage/ui/tabs.reel".Tabs# */ {
+var Tabs = exports.Tabs = Montage.create(Component, /** @lends module:"ui/tabs.reel".Tabs# */ {
 
     _repetition: {
         value: null,

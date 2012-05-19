@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/radio-button.reel"
+    @module "ui/radio-button.reel"
     @requires montage/ui/component
     @requires montage/ui/check-input
 */
@@ -14,7 +14,7 @@ var Montage = require("montage").Montage,
     CheckInput = require("ui/check-input").CheckInput;
 /**
  * Wraps the a &lt;input type="radio"> element with binding support for the element's standard attributes.
-   @class module:"montage/ui/radio-button.reel".RadioButton
+   @class module:"ui/radio-button.reel".RadioButton
    @extends module:montage/check-input.CheckInput
  */
 var RadioButton = exports.RadioButton = Montage.create(CheckInput, {
@@ -110,7 +110,7 @@ var RadioButton = exports.RadioButton = Montage.create(CheckInput, {
         }
     }
 });
-RadioButton.addAttributes(/** @lends module:"montage/ui/radio-button.reel".RadioButton */ {
+RadioButton.addAttributes(/** @lends module:"ui/radio-button.reel".RadioButton */ {
 
 /**
     Specifies whether the radio button should be focused as soon as the page is loaded.

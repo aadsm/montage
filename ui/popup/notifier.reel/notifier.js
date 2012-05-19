@@ -5,17 +5,17 @@
  </copyright> */
 
 /**
-    @module "montage/ui/popup/notifier.reel"
+    @module "ui/popup/notifier.reel"
     @requires montage/core/core
     @requires montage/ui/component
-    @requires "montage/ui/popup/popup.reel"
+    @requires "ui/popup/popup.reel"
 */
 var Montage = require("montage").Montage;
 var Component = require("ui/component").Component;
 var Popup = require("ui/popup/popup.reel").Popup;
 
 /**
- @class module:"montage/ui/popup/notifier.reel".Notifier
+ @class module:"ui/popup/notifier.reel".Notifier
  @extends module:montage/ui/component.Component
  */
 

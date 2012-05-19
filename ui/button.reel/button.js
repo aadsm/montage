@@ -6,7 +6,7 @@
  /*global require, exports*/
 
 /**
-    @module "montage/ui/button.reel"
+    @module "ui/button.reel"
     @requires montage/core/core
     @requires montage/ui/component
     @requires montage/ui/native-control
@@ -19,7 +19,7 @@ var Montage = require("montage").Montage,
 
 /**
     Wraps a native <code>&lt;button></code> or <code>&lt;input[type="button"]></code> HTML element. The element's standard attributes are exposed as bindable properties.
-    @class module:"montage/ui/button.reel".Button
+    @class module:"ui/button.reel".Button
     @extends module:montage/native-control.NativeControl
     @example
 <caption>JavaScript example</caption>
@@ -49,7 +49,7 @@ b1.addEventListener("action", function(event) {
 }
 &lt;button data-montage-id="btnElement"></button>
 */
-var Button = exports.Button = Montage.create(NativeControl, /** @lends module:"montage/ui/button.reel".Button# */ {
+var Button = exports.Button = Montage.create(NativeControl, /** @lends module:"ui/button.reel".Button# */ {
 
     _preventFocus: {
         enumerable: false,
@@ -385,7 +385,7 @@ var Button = exports.Button = Montage.create(NativeControl, /** @lends module:"m
  {@link holdThreshold}.
  */
 
-Button.addAttributes( /** @lends module:"montage/ui/button.reel".Button# */{
+Button.addAttributes( /** @lends module:"ui/button.reel".Button# */{
 
 /**
     Specifies whether the button should be focused as soon as the page is loaded.

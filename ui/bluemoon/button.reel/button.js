@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/bluemoon/button.reel"
+	@module "ui/bluemoon/button.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
@@ -12,11 +12,11 @@ var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 
 /**
- @class module:"montage/ui/bluemoon/button.reel".Button
+ @class module:"ui/bluemoon/button.reel".Button
  @classdesc Button component implementation. Turns any div element into a multi-state labeled button.
  @extends module:montage/ui/component.Component
  */
-exports.Button = Montage.create(Component,/** @lends module:"montage/ui/bluemoon/button.reel".Button# */ {
+exports.Button = Montage.create(Component,/** @lends module:"ui/bluemoon/button.reel".Button# */ {
 
 /**
   Description TODO

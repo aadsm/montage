@@ -4,14 +4,14 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/bluemoon/checkbox.reel"
+	@module "ui/bluemoon/checkbox.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 /**
-    @class module:"montage/ui/bluemoon/checkbox.reel".Checkbox
+    @class module:"ui/bluemoon/checkbox.reel".Checkbox
     @extends module:montage/ui/component.Component
 */
 exports.Checkbox = Montage.create(Component,/** @lends "module:montage/ui/bluemoon/checkbox.reel".Checkbox# */ {

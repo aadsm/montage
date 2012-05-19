@@ -6,7 +6,7 @@
 /*global require,exports */
 
 /**
-    @module "montage/ui/range-input.reel"
+    @module "ui/range-input.reel"
     @requires montage/ui/component
     @requires montage/ui/text-input
     @requires montage/ui/composer/press-composer
@@ -19,7 +19,7 @@ var Montage = require("montage").Montage,
 
 /**
  * Wraps the a &lt;input type="range"> element with binding support for the element's standard attributes.
-   @class module:"montage/ui/range-input.reel".RangeInput
+   @class module:"ui/range-input.reel".RangeInput
    @extends module:montage/text-input.TextInput
  */
 var RangeInput = exports.RangeInput = Montage.create(TextInput, {
@@ -59,7 +59,7 @@ var RangeInput = exports.RangeInput = Montage.create(TextInput, {
     }
 });
 
-RangeInput.addAttributes( /** @lends module:"montage/ui/range-input.reel".RangeInput# */ {
+RangeInput.addAttributes( /** @lends module:"ui/range-input.reel".RangeInput# */ {
 /**
     The maximum value displayed but the input control.
     @type {number}

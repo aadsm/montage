@@ -4,17 +4,17 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/bluemoon/textfield.reel"
+	@module "ui/bluemoon/textfield.reel"
     @requires montage/core/core
     @requires montage/ui/editable-text
 */
 var Montage = require("montage").Montage,
     EditableText = require("ui/editable-text").EditableText;
 /**
-    @class module:"montage/ui/bluemoon/textfield.reel".Textfield
+    @class module:"ui/bluemoon/textfield.reel".Textfield
     @extends module:montage/ui/editable-text.EditableText
 */
-var Textfield = exports.Textfield = Montage.create(EditableText,/** @lends module:"montage/ui/bluemoon/textfield.reel".Textfield# */ {
+var Textfield = exports.Textfield = Montage.create(EditableText,/** @lends module:"ui/bluemoon/textfield.reel".Textfield# */ {
 /**
         Description TODO
         @type {Property}

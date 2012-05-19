@@ -4,17 +4,17 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/slot.reel"
+	@module "ui/slot.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 /**
- @class module:"montage/ui/slot.reel".Slot
+ @class module:"ui/slot.reel".Slot
  @extends module:montage/ui/component.Component
  */
-exports.Slot = Montage.create(Component, /** @lends module:"montage/ui/slot.reel".Slot# */ {
+exports.Slot = Montage.create(Component, /** @lends module:"ui/slot.reel".Slot# */ {
 
     hasTemplate: {
         enumerable: false,

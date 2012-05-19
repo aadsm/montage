@@ -5,10 +5,10 @@
  </copyright> */
 
 /**
-    @module "montage/ui/popup/confirm.reel"
+    @module "ui/popup/confirm.reel"
     @requires montage/core/core
     @requires montage/ui/component
-    @requires "montage/ui/popup/popup.reel"
+    @requires "ui/popup/popup.reel"
 */
 
 var Montage = require("montage").Montage;
@@ -16,11 +16,11 @@ var Component = require("ui/component").Component;
 var Popup = require("ui/popup/popup.reel").Popup;
 
 /**
- @class module:"montage/ui/popup/confirm.reel".Confirm
+ @class module:"ui/popup/confirm.reel".Confirm
  @extends module:montage/ui/component.Component
  */
 
-var Confirm = exports.Confirm = Montage.create(Component, /** @lends module:"montage/ui/popup/confirm.reel".Confirm# */ {
+var Confirm = exports.Confirm = Montage.create(Component, /** @lends module:"ui/popup/confirm.reel".Confirm# */ {
     hasTemplate: {value: true},
 
     title: {

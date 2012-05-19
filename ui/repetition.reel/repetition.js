@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/repetition.reel"
+	@module "ui/repetition.reel"
     @requires montage/core/core
     @requires montage/ui/component
     @requires montage/ui/template
@@ -117,10 +117,10 @@ var FakeObjects = Montage.create(Object.prototype, {
 });
 
 /**
- @class module:"montage/ui/repetition.reel".Repetition
+ @class module:"ui/repetition.reel".Repetition
  @extends module:montage/ui/component.Component
  */
-var Repetition = exports.Repetition = Montage.create(Component, /** @lends module:"montage/ui/repetition.reel".Repetition# */{
+var Repetition = exports.Repetition = Montage.create(Component, /** @lends module:"ui/repetition.reel".Repetition# */{
     /**
      Description TODO
      */

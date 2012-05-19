@@ -11,10 +11,10 @@
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 /**
- @class module:"montage/ui/toggle-switch.reel".ToggleSwitch
+ @class module:"ui/toggle-switch.reel".ToggleSwitch
  @extends module:montage/ui/component.Component
  */
-var ToggleSwitch = exports.ToggleSwitch = Montage.create(Component, /** @lends module:"montage/ui/toggle-switch.reel".ToggleSwitch# */ {
+var ToggleSwitch = exports.ToggleSwitch = Montage.create(Component, /** @lends module:"ui/toggle-switch.reel".ToggleSwitch# */ {
 
 
     _value: {

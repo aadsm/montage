@@ -4,17 +4,17 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/bluemoon/toggle.reel"
+	@module "ui/bluemoon/toggle.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 /**
- @class module:"montage/ui/bluemoon/toggle.reel".Toggle
+ @class module:"ui/bluemoon/toggle.reel".Toggle
  @extends module:montage/ui/component.Component
  */
-var Toggle = exports.Toggle = Montage.create(Component, /** @lends module:"montage/ui/bluemoon/toggle.reel".Toggle# */ {
+var Toggle = exports.Toggle = Montage.create(Component, /** @lends module:"ui/bluemoon/toggle.reel".Toggle# */ {
 
     _value: {
         enumerable: false,

@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/rich-text-editor.reel"
+	@module "ui/rich-text-editor.reel"
     @requires montage/core/core
 */
 var Montage = require("montage").Montage,
@@ -35,10 +35,10 @@ var COMMANDS = [
 
 
 /**
-    @class module:"montage/ui/rich-text-editor.reel".RichTextEditorBase
+    @class module:"ui/rich-text-editor.reel".RichTextEditorBase
     @extends module:montage/ui/component.Component
 */
-exports.RichTextEditorBase = Montage.create(Component,/** @lends module:"montage/ui/rich-text-editor.reel".RichTextEditor# */ {
+exports.RichTextEditorBase = Montage.create(Component,/** @lends module:"ui/rich-text-editor.reel".RichTextEditor# */ {
 
     /**
       Description TODO

@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/number-input.reel"
+    @module "ui/number-input.reel"
     @requires montage/ui/component
     @requires montage/ui/text-input
 */
@@ -16,14 +16,14 @@ var Montage = require("montage").Montage,
 
 /**
  * Wraps the a &lt;input type="date"> element with binding support for the element's standard attributes.
-   @class module:"montage/ui/number-input.reel".NumberInput
+   @class module:"ui/number-input.reel".NumberInput
    @extends module:montage/text-input.TextInput
  */
 var NumberInput = exports.NumberInput = Montage.create(TextInput, {
 
 });
 
-NumberInput.addAttributes(/** @lends module:"montage/ui/number-input.reel".NumberInput */{
+NumberInput.addAttributes(/** @lends module:"ui/number-input.reel".NumberInput */{
 
 /**
 	The maximum value displayed but the number control.

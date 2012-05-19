@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/textfield.reel"
+    @module "ui/textfield.reel"
     @requires montage/ui/component
     @requires montage/ui/text-input
 */
@@ -14,7 +14,7 @@ var Montage = require("montage").Montage,
     TextInput = require("ui/text-input").TextInput;
 /**
  * Wraps the a &lt;input type="text"> element with binding support for the element's standard attributes.
-   @class module:"montage/ui/textfield.reel".Textfield
+   @class module:"ui/textfield.reel".Textfield
    @extends module:montage/ui/text-input.TextInput
 
  */

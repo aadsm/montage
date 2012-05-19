@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/bluemoon/progress.reel"
+	@module "ui/bluemoon/progress.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
@@ -14,7 +14,7 @@ var Montage = require("montage").Montage,
     @class module:montage/ui/progress.Progress
     @extends module:montage/ui/component.Component
 */
-exports.Progress = Montage.create(Component,/** @lends module:"montage/ui/bluemoon/progress.reel".Progress# */ {
+exports.Progress = Montage.create(Component,/** @lends module:"ui/bluemoon/progress.reel".Progress# */ {
 /**
   Description TODO
   @private

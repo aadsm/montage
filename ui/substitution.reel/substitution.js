@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/substitution.reel"
+	@module "ui/substitution.reel"
     @requires montage/core/core
     @requires montage/ui/component
     @requires montage/ui/slot
@@ -15,9 +15,9 @@ var Montage = require("montage").Montage,
     Slot = require("ui/slot.reel").Slot,
     logger = require("core/logger").logger("substitution");
 /**
- @class module:"montage/ui/substitution.reel".Substitution
+ @class module:"ui/substitution.reel".Substitution
  */
-exports.Substitution = Montage.create(Slot, /** @lends module:"montage/ui/substitution.reel".Substitution# */ {
+exports.Substitution = Montage.create(Slot, /** @lends module:"ui/substitution.reel".Substitution# */ {
 
     hasTemplate: {
         enumerable: false,

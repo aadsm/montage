@@ -4,7 +4,7 @@
  (c) Copyright 2012 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-    @module "montage/ui/dynamic-element.reel"
+    @module "ui/dynamic-element.reel"
     @requires montage
     @requires montage/ui/component
 */
@@ -13,10 +13,10 @@ var Montage = require("montage").Montage,
 
 /**
     The DynamicElement is a general purpose component that aims to expose all the properties of the element as a component.
-    @class module:"montage/ui/dynamic-element.reel".DynamicElement
+    @class module:"ui/dynamic-element.reel".DynamicElement
     @extends module:montage/ui/component.Component
 */
-exports.DynamicElement = Montage.create(Component, /** @lends module:"montage/ui/dynamic-element.reel".DynamicElement# */ {
+exports.DynamicElement = Montage.create(Component, /** @lends module:"ui/dynamic-element.reel".DynamicElement# */ {
 
     hasTemplate: {
         value: false

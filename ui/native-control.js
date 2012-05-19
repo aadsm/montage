@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/native-control"
+    @module "ui/native-control"
     @requires montage/core/core
     @requires montage/ui/component
 */

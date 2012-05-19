@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/dynamic-text.reel"
+	@module "ui/dynamic-text.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
@@ -12,10 +12,10 @@ var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 
 /**
- @class module:"montage/ui/dynamic-text.reel".DynamicText
+ @class module:"ui/dynamic-text.reel".DynamicText
  @extends module:montage/ui/component.Component
  */
-exports.DynamicText = Montage.create(Component, /** @lends module:"montage/ui/dynamic-text.reel".DynamicText# */ {
+exports.DynamicText = Montage.create(Component, /** @lends module:"ui/dynamic-text.reel".DynamicText# */ {
 
     hasTemplate: {
         value: false

@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-    @module "montage/ui/bluemoon/slider.reel"
+    @module "ui/bluemoon/slider.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
@@ -14,10 +14,10 @@ var Montage = require("montage").Montage,
     Point = require("core/geometry/point").Point;
 
 /**
- @class module:"montage/ui/bluemoon/slider.reel".Slider
+ @class module:"ui/bluemoon/slider.reel".Slider
  @extends module:montage/ui/component.Component
  */
-exports.Slider = Montage.create(Component,/** @lends module:"montage/ui/bluemoon/slider.reel".Slider# */ {
+exports.Slider = Montage.create(Component,/** @lends module:"ui/bluemoon/slider.reel".Slider# */ {
     // Extra elements for rendering
 
     _bghl: {

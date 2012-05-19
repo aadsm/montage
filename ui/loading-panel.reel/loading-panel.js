@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-	@module "montage/ui/loading-panel.reel"
+	@module "ui/loading-panel.reel"
 */
 
 var Montage = require("montage").Montage,

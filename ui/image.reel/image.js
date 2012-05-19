@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/image.reel"
+    @module "ui/image.reel"
     @requires montage/ui/component
     @requires montage/ui/native-control
 */
@@ -15,14 +15,14 @@ var Montage = require("montage").Montage,
 
 /**
  * Wraps the a &lt;img> element with binding support for its standard attributes.
-   @class module:"montage/ui/image.reel".Image
+   @class module:"ui/image.reel".Image
    @extends module:montage/native-control.NativeControl
  */
 var Image = exports.Image = Montage.create(NativeControl, {
 
 });
 
-Image.addAttributes(/** @lends module:"montage/ui/image.reel".Image */{
+Image.addAttributes(/** @lends module:"ui/image.reel".Image */{
 
 /**
     A text description to display in place of the image.

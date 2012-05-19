@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/popup/popup.reel"
+    @module "ui/popup/popup.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
@@ -13,7 +13,7 @@ var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 
 /**
-    @class module:"montage/ui/popup.reel".Popup
+    @class module:"ui/popup.reel".Popup
     @extends module:montage/ui/component.Component
 */
 

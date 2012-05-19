@@ -4,14 +4,14 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-	@module "montage/ui/list.reel"
+	@module "ui/list.reel"
     @requires montage/core/core
     @requires montage/ui/component
 */
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component;
 /**
- @class module:"montage/ui/list.reel".List
+ @class module:"ui/list.reel".List
  @extends module:montage/ui/component.Component
  */
 var List = exports.List = Montage.create(Component,/** @lends module:"montage/ui/list.reel".List# */ {

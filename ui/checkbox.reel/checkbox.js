@@ -4,7 +4,7 @@
  (c) Copyright 2011 Motorola Mobility, Inc.  All Rights Reserved.
  </copyright> */
 /**
-    @module "montage/ui/checkbox.reel"
+    @module "ui/checkbox.reel"
     @requires montage/core/core
     @requires montage/ui/check-input
 */
@@ -14,13 +14,13 @@ var Montage = require("montage").Montage,
 
 /**
 
-    @class module:"montage/ui/checkbox.reel".Checkbox
+    @class module:"ui/checkbox.reel".Checkbox
     @extends module:montage/ui/check-input.CheckInput
     @example
     TODO
 */
 var Checkbox = exports.Checkbox = Montage.create(CheckInput, {});
-Checkbox.addAttributes( /** @lends module:"montage/ui/checkbox.reel".Checkbox# */ {
+Checkbox.addAttributes( /** @lends module:"ui/checkbox.reel".Checkbox# */ {
 
 /**
     Specifies if the checkbox control should receive focus when the document loads. Because Montage components are loaded asynchronously after the document has loaded, setting this property has no effect on the element's focus state.

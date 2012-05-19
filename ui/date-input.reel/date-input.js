@@ -5,7 +5,7 @@
  </copyright> */
 
 /**
-    @module "montage/ui/date-input.reel"
+    @module "ui/date-input.reel"
     @requires montage/core/core
     @requires montage/ui/component
     @requires montage/ui/text-input
@@ -16,13 +16,13 @@ var Montage = require("montage").Montage,
 
 /**
   	Wraps an &lt;input type="date"> element as a component.
-    @class module:"montage/ui/date-input.reel".DateInput
+    @class module:"ui/date-input.reel".DateInput
     @extends module:montage/ui/text-input.TextInput
  */
 var DateInput = exports.DateInput = Montage.create(TextInput, {
 });
 
-DateInput.addAttributes( /** @lends module:"montage/ui/date-input.reel".DateInput# */{
+DateInput.addAttributes( /** @lends module:"ui/date-input.reel".DateInput# */{
 
 /**
 	The upper bound for the element’s value represented in the "full-date" format, (for example, 2001-05-24).
