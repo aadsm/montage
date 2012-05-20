@@ -10,15 +10,15 @@
     <title>Component Inspector</title>
     <script type="text/montage-serialization">{
         "owner": {
-            "prototype": "montage/ui/component-inspector.reel",
+            "prototype": "ui/component-inspector.reel",
             "properties": {
                 "element": {"#": "component-inspector"},
                 "componentHighlighter": {"#": "component-highlighter"}
             }
         },
-        
+
         "bindings": {
-            "prototype": "montage/ui/repetition.reel",
+            "prototype": "ui/repetition.reel",
             "properties": {
                 "element": {"#": "bindings"}
             },
@@ -26,9 +26,9 @@
                 "objects": {"<-": "@owner.bindings"}
             }
         },
-        
+
         "leftSide": {
-            "prototype": "montage/ui/button.reel",
+            "prototype": "ui/button.reel",
             "properties": {
                 "element": {"#": "leftSide"}
             },
@@ -41,9 +41,9 @@
                 "capture": false
             }]
         },
-        
+
         "direction": {
-            "prototype": "montage/ui/dynamic-text.reel",
+            "prototype": "ui/dynamic-text.reel",
             "properties": {
                 "element": {"#": "direction"}
             },
@@ -51,9 +51,9 @@
                 "value": {"<-": "@bindings.objectAtCurrentIteration.direction"}
             }
         },
-        
+
         "rightSide": {
-            "prototype": "montage/ui/dynamic-text.reel",
+            "prototype": "ui/dynamic-text.reel",
             "properties": {
                 "element": {"#": "rightSide"}
             },

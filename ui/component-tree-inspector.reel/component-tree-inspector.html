@@ -10,15 +10,15 @@
     <title>Component Tree Inspector</title>
     <script type="text/montage-serialization">{
         "owner": {
-            "prototype": "montage/ui/component-tree-inspector.reel",
+            "prototype": "ui/component-tree-inspector.reel",
             "properties": {
                 "element": {"#": "component-tree-inspector"},
                 "panel": {"@": "panel"}
             }
         },
-        
+
         "tree": {
-            "prototype": "components/tree-viewer.reel",
+            "prototype": "examples/components/tree-viewer.reel",
             "properties": {
                 "element": {"#": "component-tree-panel"},
                 "delegate": {"@": "owner"}
@@ -27,9 +27,9 @@
                 "data": {"<-": "@owner.componentTree"}
             }
         },
-        
+
         "panel": {
-            "prototype": "montage/ui/slot.reel",
+            "prototype": "ui/slot.reel",
             "properties": {
                 "element": {"#": "component-panel"}
             }

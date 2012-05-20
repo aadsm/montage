@@ -10,14 +10,14 @@
     <title>Repetition Inspector</title>
     <script type="text/montage-serialization">{
         "owner": {
-            "prototype": "montage/ui/repetition-inspector.reel",
+            "prototype": "ui/repetition-inspector.reel",
             "properties": {
                 "element": {"#": "repetition-inspector"}
             }
         },
-        
+
         "iterations": {
-            "prototype": "montage/ui/dynamic-text.reel",
+            "prototype": "ui/dynamic-text.reel",
             "properties": {
                 "element": {"#": "iterations"}
             },
@@ -25,9 +25,9 @@
                 "value": {"<-": "@owner.iterations"}
             }
         },
-        
+
         "iterationTemplate": {
-            "prototype": "montage/ui/textarea.reel",
+            "prototype": "ui/textarea.reel",
             "properties": {
                 "element": {"#": "iterationTemplate"}
             },
@@ -41,7 +41,7 @@
     <div data-montage-id="repetition-inspector">
         <hr>
         Repetition Inspector
-        
+
         <p>
             Iterations: <span data-montage-id="iterations"></span>
         </p>

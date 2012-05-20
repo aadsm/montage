@@ -19,14 +19,14 @@
         },
 
         "dataController": {
-            "prototype": "montage/ui/controller/array-controller",
+            "prototype": "ui/controller/array-controller",
             "bindings": {
                 "content": {"<-": "@owner.data"}
             }
         },
 
         "repetition": {
-            "prototype": "montage/ui/repetition.reel",
+            "prototype": "ui/repetition.reel",
             "properties": {
                 "element": {"#": "repetition"},
                 "contentController": {"@": "dataController"},
@@ -35,11 +35,11 @@
         },
 
         "typeConverter": {
-            "object": "components/type-converter"
+            "object": "examples/components/type-converter"
         },
 
         "substitution": {
-            "prototype": "montage/ui/substitution.reel",
+            "prototype": "ui/substitution.reel",
             "properties": {
                 "element": {"#": "substitution"},
                 "switchComponents": {
@@ -53,7 +53,7 @@
         },
 
         "leaf": {
-            "prototype": "montage/ui/dynamic-text.reel",
+            "prototype": "ui/dynamic-text.reel",
             "properties": {
                 "element": {"#": "leaf"},
                 "identifier": "label"
@@ -64,7 +64,7 @@
         },
 
         "children": {
-            "prototype": "components/tree-viewer.reel",
+            "prototype": "examples/components/tree-viewer.reel",
             "properties": {
                 "element": {"#": "children"}
             },
@@ -76,7 +76,7 @@
         },
 
         "branchLabel": {
-            "prototype": "montage/ui/dynamic-text.reel",
+            "prototype": "ui/dynamic-text.reel",
             "properties": {
                 "element": {"#": "branch-label"},
                 "identifier": "label"
@@ -87,7 +87,7 @@
         },
 
         "branchExpandButton": {
-            "prototype": "montage/ui/toggle-button.reel",
+            "prototype": "ui/toggle-button.reel",
             "properties": {
                 "element": {"#": "branch-expand"},
                 "unpressedLabel": "[+]",
