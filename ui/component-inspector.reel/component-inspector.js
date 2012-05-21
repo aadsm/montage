@@ -1,23 +1,23 @@
 var Montage = require("montage").Montage,
     Component = require("ui/component").Component,
     ComponentTreeInspector = require("ui/component-tree-inspector.reel").ComponentTreeInspector;
-    
+
 var ComponentInspector = exports.ComponentInspector = Montage.create(Component, {
     component: {
         value: null
     },
-    
+
     prepareForDraw: {
         value: function() {
             this.element.ownerDocument.body.appendChild(this.componentHighlighter);
             this.hightlightComponent();
         }
     },
-    
+
     hightlightComponent: {
         value: function() {
             var componentHighlighter = this.componentHighlighter;
-            
+
             if (!componentHighlighter) {
                 return;
             }
@@ -32,7 +32,7 @@ var ComponentInspector = exports.ComponentInspector = Montage.create(Component, 
 console.log("..", componentHighlighter, rect, component.element);
         }
     },
-    
+
     selected: {
         value: function(component) {
             ComponentTreeInspector.setPanel(this);
@@ -40,14 +40,14 @@ console.log("..", componentHighlighter, rect, component.element);
             this.hightlightComponent();
         }
     },
-    
+
     bindings: {
         dependencies: ["component"],
         get: function() {
             var bindingDescriptors = this.component._bindingDescriptors,
                 bindings = [],
                 binding;
-            
+
             for (var key in bindingDescriptors) {
                 binding = bindingDescriptors[key];
                 direction = "<-" in binding ? "<-" : ("<->>" in binding ? "<->>" : ("->" in binding ? "->" : ("<<->" in binding ? "<<->" : null)));
@@ -61,11 +61,11 @@ console.log("..", componentHighlighter, rect, component.element);
             return bindings;
         }
     },
-    
+
     handleLeftSideAction: {
         value: function(event) {
             var propertyName = event.target.label;
-            
+
             console.log(propertyName + ": " , this.component[propertyName]);
         }
     }
