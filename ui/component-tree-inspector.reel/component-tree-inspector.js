@@ -129,7 +129,7 @@ var ComponentTreeData = Object.create(Object.prototype, {
             if (this._data) {
                 this._data.removePropertyChangeListener("childComponents", this);
                 for (var i = 0, l = children.length; i < l; i++) {
-                    children[i].setData(null);
+                    children[i].data = null;
                 }
             }
             this.children = null;
@@ -138,6 +138,9 @@ var ComponentTreeData = Object.create(Object.prototype, {
                 childComponents = value.childComponents;
                 children = [];
                 for (var i = 0, l = childComponents.length; i < l; i++) {
+                    if (ComponentTreeInspector === childComponents[i]) {
+                        continue;
+                    }
                     children[i] = Object.create(ComponentTreeData);
                     children[i].data = childComponents[i];
                 }
@@ -151,13 +154,26 @@ var ComponentTreeData = Object.create(Object.prototype, {
 
     handleChange: {
         value: function(notification) {
-            this._updateChildren(notification.minus, notification.plus);
+            this._updateChildren(notification.index, notification.minus, notification.plus);
         }
     },
 
     _updateChildren: {
-        value: function(minus, plus) {
-            console.log(minus, plus);
+        value: function(index, minus, plus) {
+            var children = this.children,
+                child;
+
+            // remove
+            for (var i = 0; i < minus.length; i++) {
+                children[index+i].data = null;
+            }
+            children.splice(index, minus.length);
+            // add
+            for (var i = 0; i < plus.length; i++) {
+                child = Object.create(ComponentTreeData);
+                child.data = plus[i];
+                children.splice(index+i, 0, child);
+            }
         }
     },
 
