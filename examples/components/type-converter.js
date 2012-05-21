@@ -7,11 +7,15 @@ var Montage = require("montage").Montage;
 var Converter = require('core/converter/converter').Converter;
 
 exports.TypeConverter = Montage.create(Converter, {
-    convert: {value: function(value) {
-        if (typeof value.children === "undefined") {
-            return "leaf";
-        } else {
-            return "branch";
+    convert: {
+        value: function(value) {
+            if (value) {
+                if (typeof value.children === "undefined") {
+                    return "leaf";
+                } else {
+                    return "branch";
+                }
+            }
         }
-    }}
+    }
 });
