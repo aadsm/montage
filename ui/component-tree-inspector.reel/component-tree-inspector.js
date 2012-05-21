@@ -64,11 +64,11 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
         value: null
     },
 
-    updateComponentTree: {
+    setupComponentTree: {
         value: function() {
             var root = Object.create(ComponentTreeData);
             root.data = this.rootComponent;
-            this.componentTree = [root];
+            this.componentTree = root.children;
         }
     },
 
@@ -81,7 +81,7 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
             } else {
                 this.element.style.display = "block";
             }
-            this.updateComponentTree();
+            this.setupComponentTree();
         }
     },
 
