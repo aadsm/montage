@@ -15,6 +15,11 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
         value: false
     },
 
+    panel: {
+        serializable: true,
+        value: null
+    },
+
     templateModuleId: {
         value: "ui/component-tree-inspector.reel/component-tree-inspector.html"
     },
