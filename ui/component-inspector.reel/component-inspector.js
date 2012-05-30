@@ -7,6 +7,11 @@ var ComponentInspector = exports.ComponentInspector = Montage.create(Component, 
         value: null
     },
 
+    componentHighlighter: {
+        serializable: true,
+        value: null
+    },
+
     prepareForDraw: {
         value: function() {
             this.element.ownerDocument.body.appendChild(this.componentHighlighter);
@@ -29,7 +34,6 @@ var ComponentInspector = exports.ComponentInspector = Montage.create(Component, 
             componentHighlighter.style.width = rect.width + "px";
             componentHighlighter.style.height = rect.height + "px";
             componentHighlighter.style.position = "absolute";
-console.log("..", componentHighlighter, rect, component.element);
         }
     },
 
