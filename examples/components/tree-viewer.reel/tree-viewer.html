@@ -14,14 +14,7 @@
                 "element": {"#": "tree"}
             },
             "bindings": {
-                "selectedData": {"<-": "@dataController.selectedObjects.0"}
-            }
-        },
-
-        "dataController": {
-            "prototype": "ui/controller/array-controller",
-            "bindings": {
-                "content": {"<-": "@owner.data"}
+                "selectedData": {"<-": "@owner.dataController.selectedObjects.0"}
             }
         },
 
@@ -29,8 +22,10 @@
             "prototype": "ui/repetition.reel",
             "properties": {
                 "element": {"#": "repetition"},
-                "contentController": {"@": "dataController"},
                 "isSelectionEnabled": true
+            },
+            "bindings": {
+                "contentController": {"<-": "@owner.dataController"}
             }
         },
 

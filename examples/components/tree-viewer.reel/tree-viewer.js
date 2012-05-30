@@ -5,16 +5,33 @@
  </copyright> */
 
 var Montage = require("montage").Montage,
-    Component = require("ui/component").Component;
+    Component = require("ui/component").Component,
+    ArrayController = require("ui/controller/array-controller").ArrayController;
 
 var TreeViewer = exports.TreeViewer = Montage.create(Component, {
     data: {
+        serializable: "reference",
+        set: function(value) {
+            this.dataController.content = this._data = value;
+        },
+        get: function() {
+            return this.dataController.content;
+        }
+    },
+
+    dataController: {
         value: null
     },
 
     leaf: {
         serializable: true,
         value: null
+    },
+
+    didCreate: {
+        value: function() {
+            this.dataController = ArrayController.create();
+        }
     },
 
     draw: {
