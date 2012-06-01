@@ -29,8 +29,8 @@ var ComponentInspector = exports.ComponentInspector = Montage.create(Component, 
             var component = this.component,
                 rect = component.element.getBoundingClientRect();
 
-            componentHighlighter.style.top = (rect.top + window.pageYOffset) + "px";
-            componentHighlighter.style.left = (rect.left + window.pageXOffset) + "px";
+            componentHighlighter.style.top = (rect.top-1 + window.pageYOffset) + "px";
+            componentHighlighter.style.left = (rect.left-1 + window.pageXOffset) + "px";
             componentHighlighter.style.width = rect.width + "px";
             componentHighlighter.style.height = rect.height + "px";
             componentHighlighter.style.position = "absolute";
