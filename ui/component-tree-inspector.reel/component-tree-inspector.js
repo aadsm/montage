@@ -11,6 +11,11 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
         value: null
     },
 
+    _componentHighlighter: {
+        serializable: true,
+        value: null
+    },
+
     isVisible: {
         value: false
     },
@@ -22,6 +27,16 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
 
     templateModuleId: {
         value: "ui/component-tree-inspector.reel/component-tree-inspector.html"
+    },
+
+    prepareForDraw: {
+        value: function() {
+            var self = this,
+                delegate = this.delegate;
+
+this._element.ownerDocument.body.appendChild(this._componentHighlighter);
+            console.log(this._componentHighlighter);
+        }
     },
 
     init: {
@@ -114,6 +129,25 @@ var ComponentTreeInspector = exports.ComponentTreeInspector = Montage.create(Com
             } else {
                 this._componentInspector.selected(component);
             }
+        }
+    },
+
+    treeItemOver: {
+        value: function(object) {
+            var componentHighlighter = this._componentHighlighter,
+                rect = object.data._element.getBoundingClientRect();
+
+            componentHighlighter.style.top = (rect.top-2 + window.pageYOffset) + "px";
+            componentHighlighter.style.left = (rect.left-2 + window.pageXOffset) + "px";
+            componentHighlighter.style.width = rect.width + "px";
+            componentHighlighter.style.height = rect.height + "px";
+            componentHighlighter.style.display = "block";
+        }
+    },
+
+    treeItemOut: {
+        value: function() {
+            this._componentHighlighter.style.display = "none";
         }
     }
 });

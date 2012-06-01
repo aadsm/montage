@@ -13,7 +13,8 @@
             "prototype": "ui/component-tree-inspector.reel",
             "properties": {
                 "element": {"#": "component-tree-inspector"},
-                "panel": {"@": "panel"}
+                "panel": {"@": "panel"},
+                "_componentHighlighter": {"#": "component-highlighter"}
             }
         },
 
@@ -50,14 +51,20 @@
             padding: 5px;
             z-index: 1000;
         }
-        
+
         .montage-component-tree-inspector h4 {
             margin-top: 0px;
         }
-        
+
         .component-tree-panel .montage-tree-viewer-label:hover {
             cursor: pointer;
             text-decoration: underline;
+        }
+
+        .montage-component-tree-inspector-highlighter {
+            position: absolute;
+            border: 2px dashed blue;
+            z-index: 500;
         }
     </style>
 </head>
@@ -66,6 +73,7 @@
         <h4>Component Tree Inspector</h4>
         <div data-montage-id="component-tree-panel" class="component-tree-panel"></div>
         <div data-montage-id="component-panel"></div>
+        <div data-montage-id="component-highlighter" class="montage-component-tree-inspector-highlighter"></div>
     </div>
 </body>
 </html>
