@@ -34,6 +34,37 @@ var TreeViewer = exports.TreeViewer = Montage.create(Component, {
         }
     },
 
+    prepareForDraw: {
+        value: function() {
+            this._element.addEventListener("mouseover", this, false);
+            this._element.addEventListener("mouseout", this, false);
+        }
+    },
+
+    handleMouseover: {
+        value: function(event) {
+            var delegate = this.delegate;
+
+            event.stopPropagation();
+            if (delegate && delegate.treeItemOver && event.target.classList.contains("montage-tree-viewer-label")) {
+                var index = this.repetition._itemIndexOfElement(event.target)
+                delegate.treeItemOver(this._data[index]);
+            }
+        }
+    },
+
+    handleMouseout: {
+        value: function(event) {
+            var delegate = this.delegate;
+
+            event.stopPropagation();
+            if (delegate && delegate.treeItemOut && event.target.classList.contains("montage-tree-viewer-label")) {
+                var index = this.repetition._itemIndexOfElement(event.target);
+                delegate.treeItemOut(this._data[index]);
+            }
+        }
+    },
+
     draw: {
         value: function() {
             if (this._isVisible) {
