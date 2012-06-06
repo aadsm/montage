@@ -31,6 +31,11 @@ var TreeViewer = exports.TreeViewer = Montage.create(Component, {
     didCreate: {
         value: function() {
             this.dataController = ArrayController.create();
+            Object.defineBinding(this, "selectedData", {
+                boundObject: this.dataController,
+                boundObjectPropertyPath: "selectedObjects.0",
+                oneway: true
+            });
         }
     },
 
