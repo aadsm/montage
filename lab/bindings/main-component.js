@@ -56,8 +56,14 @@ exports.Main = Montage.create(Component, {
         value: 0
     },
 
+    objects: {
+        set: function(value) {
+            this.repetition.objects = new Array(Number(value));
+        }
+    },
+
     _lastTimestamp: {
-        value: +new Date
+        value: Date.now()
     },
     __numberDraws: {
         value: 0
@@ -69,6 +75,8 @@ exports.Main = Montage.create(Component, {
 
     draw: {
         value: function(timestamp) {
+            timestamp = Date.now();
+
             if (timestamp >= this._lastTimestamp + 1000) {
                 this._lastTimestamp = timestamp;
                 this.numberDraws = this.__numberDraws;

@@ -476,7 +476,7 @@ exports.Slider = Montage.create(Component,/** @lends module:"montage/ui/bluemoon
 
     draw: {
         value: function() {
-
+console.log("DRAW");
             /*
              ~~ is vastly faster then Math.floor
 

@@ -106,6 +106,12 @@ var PropertyChangeBindingListener = exports.PropertyChangeBindingListener = Obje
             this.deferredValueTarget = "";
         }
     },
+    _lastTimestamp: {
+        value: {date: Date.now()}
+    },
+    __bps: {
+        value: {count: 0}
+    },
     handleChange:{
         value:function (notification) {
 
@@ -117,8 +123,16 @@ var PropertyChangeBindingListener = exports.PropertyChangeBindingListener = Obje
                 // Right
                 boundObject = this.target,
                 boundObjectPropertyPath = this.targetPropertyPath,
-                boundObjectValue;
+                boundObjectValue,
+                timestamp = Date.now();
 
+            if (timestamp >= this._lastTimestamp.date + 1000) {
+                this._lastTimestamp.date = timestamp;
+                Stats.bps = this.__bps.count;
+                this.__bps.count = 0;
+                //console.log(Stats.bps);
+            }
+            this.__bps.count++;
             // Determine if binding triggered by change on bindingOrigin
             if (boundObject !== bindingOrigin) {
                 // the origin and bound object are different objects; easy enough
@@ -317,8 +331,7 @@ Deserializer.defineDeserializationUnit("bindings", function(object, bindings, de
     }
 });
 
-var __bindingCount = exports.Stats = {count: 0};
-console.log(__bindingCount);
+var Stats = exports.Stats = {count: 0, bps: 0};
 
 /**
     @function external:Object.defineBinding
@@ -340,7 +353,7 @@ Object.defineProperty(Object, "defineBinding", {value: function(sourceObject, so
         //TODO should we throw an error here? the binding descriptor wasn't valid
         return;
     }
-    __bindingCount.count++;
+    Stats.count++;
     if (!_bindingDescriptors) {
         // To ensure the binding descriptor collection is serializable, it needs all the expected properties
         //of an object in our framework; a UUID in particular
@@ -454,7 +467,7 @@ Object.defineProperty(Object, "deleteBinding", {value: function(sourceObject, so
         oneway;
 
     if (sourceObjectPropertyBindingPath in _bindingDescriptors) {
-        __bindingCount.count--;
+        Stats.count--;
         bindingDescriptor = _bindingDescriptors[sourceObjectPropertyBindingPath];
         oneway = typeof bindingDescriptor.oneway === "undefined" ? true : bindingDescriptor.oneway;
 
