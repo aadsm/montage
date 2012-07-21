@@ -33,23 +33,41 @@ var Montage = require("montage/core/core").Montage,
     Component = require("montage/ui/component").Component;
 
 exports.Logger = Montage.create(Component, {
+
+    _scroller: {
+        value: null
+    },
+    _output: {
+        value: null
+    },
+
     input: {
         distinct: true,
         value: []
     },
-    isOpen: {
+
+    _isOpen: {
         value: false
+    },
+    isOpen: {
+        get: function() {
+            return this._isOpen;
+        },
+        set: function(value) {
+            if (this._isOpen !== value) {
+                this._isOpen = value;
+                this.needsDraw = true;
+            }
+        }
+    },
+
+    _value: {
+        value: ""
     },
 
     _newMessages: {
         distinct: true,
-        value: ["Logger (click to open)"]
-    },
-    _needsOpen: {
-        value: false
-    },
-    _needsClose: {
-        value: false
+        value: []
     },
 
     templateDidLoad: {
@@ -58,25 +76,9 @@ exports.Logger = Montage.create(Component, {
         }
     },
 
-    prepareForActivationEvents: {
-        value: function() {
-            this.element.addEventListener('click', this);
-            this.element.addEventListener('touchend', this);
-        }
-    },
-
     log: {
         value: function(msg) {
-            var d = new Date(),
-                h = d.getHours(),
-                m = d.getMinutes(),
-                s = d.getSeconds();
-
-            // zero padding
-            if (m < 10) { m = "0" + m; }
-            if (s < 10) { s = "0" + s; }
-
-            this._newMessages.push("["+h+":"+m+":"+s+"] " + msg);
+            this._newMessages.push(msg);
             this.needsDraw = true;
         }
     },
@@ -85,28 +87,30 @@ exports.Logger = Montage.create(Component, {
         value: function() {
             var newMessages = this._newMessages;
 
-            if (this._needsOpen) {
-                this._element.classList.add("open");
-                this._needsOpen = false;
-                this.isOpen = true;
-            } else if (this._needsClose) {
-                this._element.classList.remove("open");
-                this._needsClose = false;
-                this.isOpen = false;
-            }
-
             if (newMessages.length > 0) {
-                this.templateObjects.output.value += newMessages.join("\n") + "\n";
+                this._value += newMessages.join("\n") + "\n";
                 newMessages.length = 0;
-                this._element.classList.add("logger-hilight");
+                this._element.classList.add("Logger-hilight");
+
+                this._scroller.scrollY = Number.MAX_VALUE;
 
                 var self = this;
                 window.setTimeout(function() {
-                  self.needsDraw = true;
+                    self.needsDraw = true;
                 }, 100);
             } else {
-              this._element.classList.remove("logger-hilight");
+              this._element.classList.remove("Logger-hilight");
             }
+
+            if (this.isOpen) {
+                this._element.classList.add("open");
+                this._scroller.needsDraw = true;
+            } else {
+                this._element.classList.remove("open");
+                this._scroller.scrollY = Number.MAX_VALUE;
+            }
+
+            this._output.textContent = this._value;
         }
     },
 
@@ -120,19 +124,10 @@ exports.Logger = Montage.create(Component, {
         }
     },
 
-    handleClick: {
-        value: function(ev) {
-            if (this.isOpen) {
-                this._needsClose = true;
-            } else {
-                this._needsOpen = true;
-            }
-            this.needsDraw = true;
-        }
-    },
-    handleTouchend: {
-        value: function(ev) {
-            this._open = !this._open;
+    handleClearAction: {
+        value: function(event) {
+            console.log("handleAction");
+            this._value = "";
             this.needsDraw = true;
         }
     }
