@@ -1,4 +1,5 @@
 var Template = require("montage/ui/template").Template,
+    Deserializer = require("montage/core/deserializer").Deserializer,
     Component = require("montage/ui/component").Component,
     Promise = require("montage/core/promise").Promise,
     rootComponent = require("montage/ui/component").__root__;
@@ -8,13 +9,35 @@ window.Frame = {
     _javascript: document.querySelector('script[type="text/montage-javascript"]'),
     reset: function() {
         var childComponents = rootComponent.childComponents,
-            childComponent;
+            childComponent,
+            templates = Template.__templatesById,
+            modules = require.modules;
 
         for (var i = 0; childComponent = childComponents[i]; i++) {
             childComponent.detachFromParentComponent();
             childComponent.cleanupDeletedComponentTree();
         }
+
+        // clean up module caches, again this is completely hacked
+        Deserializer._modules = {};
+        for (var templateId in templates) {
+            if (templateId.indexOf(this._MODULE_ID + "/") === 0) {
+                delete templates[templateId];
+            }
+        }
+        // this is beyond hacked, Kris will kill me if he sees this
+        for (var moduleId in modules) {
+            if (moduleId.indexOf(this._MODULE_ID + "/") === 0) {
+                delete modules[moduleId];
+            }
+        }
+
+        // clean up the draw cycle
         rootComponent.needsDraw = false;
+        rootComponent._needsDrawList = [];
+        rootComponent._readyToDrawList = [];
+        rootComponent._cannotDrawList = {};
+        rootComponent.requestedAnimationFrame = null;
     },
 
     boot: function() {
@@ -46,11 +69,11 @@ window.Frame = {
         owner.templateObjects = {};
 
         template.instantiateWithOwnerAndDocument(owner, window.document, function(owner) {
-            if (owner) {
-                owner.needsDraw = true;
-            } else {
-                rootComponent.needsDraw = true;
+            if (owner && typeof owner.attachToParentComponent === "function") {
+                owner.attachToParentComponent();
             }
+            rootComponent.needsDraw = true;
+
         });
     },
 
