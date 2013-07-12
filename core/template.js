@@ -3,7 +3,9 @@ var Montage = require("montage").Montage,
     DocumentPart = require("core/document-part").DocumentPart,
     DocumentResources = require("core/document-resources").DocumentResources,
     Serialization = require("core/serialization/serialization").Serialization,
+    MontageReviver = require("core/serialization/deserializer/montage-reviver").MontageReviver,
     MontageLabeler = require("core/serialization/serializer/montage-labeler").MontageLabeler,
+    MCS = require("core/component-sheet"),
     Promise = require("core/promise").Promise,
     logger = require("core/logger").logger("template"),
     defaultEventManager = require("core/event/event-manager").defaultEventManager,
@@ -11,6 +13,7 @@ var Montage = require("montage").Montage,
 
 var Template = Montage.specialize( {
     _SERIALIZATON_SCRIPT_TYPE: {value: "text/montage-serialization"},
+    _COMPONENT_SHEET_SCRIPT_TYPE: {value: "application/mcs"},
     _ELEMENT_ID_ATTRIBUTE: {value: "data-montage-id"},
     PARAM_ATTRIBUTE: {value: "data-param"},
 
@@ -639,7 +642,33 @@ var Template = Montage.specialize( {
      */
     getInlineObjectsString: {
         value: function(doc) {
-            var selector = "script[type='" + this._SERIALIZATON_SCRIPT_TYPE + "']",
+            var componentSheet = this.getComponentSheet(doc),
+                selector = "script[type='" + this._SERIALIZATON_SCRIPT_TYPE + "']",
+                script,
+                objectsString;
+
+            if (componentSheet) {
+                objectsString = this._convertComponentSheetToObjectsString(
+                    componentSheet);
+
+                if (logger.isDebug) {
+                    logger.debug(JSON.stringify(objectsString, null, 2))
+                }
+                return JSON.stringify(objectsString);
+            } else {
+                script = doc.querySelector(selector);
+                if (script) {
+                    return script.textContent;
+                } else {
+                    return null;
+                }
+            }
+        }
+    },
+
+    getComponentSheet: {
+        value: function(doc) {
+            var selector = "script[type='" + this._COMPONENT_SHEET_SCRIPT_TYPE + "']",
                 script = doc.querySelector(selector);
 
             if (script) {
@@ -647,6 +676,34 @@ var Template = Montage.specialize( {
             } else {
                 return null;
             }
+        }
+    },
+
+    _convertComponentSheetToObjectsString: {
+        value: function(componentSheet) {
+            var serialization = MCS.componentSheetToSerialization(componentSheet),
+                objectDesc,
+                locationDesc;
+
+            // infer the element references, this should probably be done on the
+            // componentSheetToSerialization side.
+            for (var key in serialization) {
+                objectDesc = serialization[key];
+                if (!objectDesc.prototype) {
+                    continue;
+                }
+                locationDesc = MontageReviver.parseObjectLocationId(
+                    objectDesc.prototype);
+                if (/\.reel$/.test(locationDesc.moduleId) &&
+                    (!objectDesc.properties || !objectDesc.properties.element)) {
+                    if (!objectDesc.properties) {
+                        objectDesc.properties = {};
+                    }
+                    objectDesc.properties.element = {"#": key};
+                }
+            }
+
+            return serialization;
         }
     },
 
