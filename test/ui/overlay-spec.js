@@ -29,38 +29,9 @@ describe("ui/overlay-spec", function() {
             anOverlay.element.offsetWidth = 100;
             anOverlay.element.offsetHeight = 50;
 
+            anOverlay._calculateOwnBoundingRect();
             anOverlay._calculatePosition();
             expect(anOverlay._drawPosition).toEqual({left: 300, top: 275});
-        });
-
-        describe("element position", function() {
-            it("should find the position of an element with no offset parent", function() {
-                var anElement = MockDOM.element(),
-                    position;
-
-                anElement.offsetTop = 100;
-                anElement.offsetLeft = 200;
-
-                position = anOverlay._getElementPosition(anElement);
-                expect(position.top).toBe(100);
-                expect(position.left).toBe(200);
-            });
-
-            it("should find the position of an element with an offset parent", function() {
-                var anElement = MockDOM.element(),
-                    anElementParent = MockDOM.element(),
-                    position;
-
-                anElement.offsetTop = 100;
-                anElement.offsetLeft = 200;
-                anElement.offsetParent = anElementParent;
-                anElementParent.offsetTop = 2;
-                anElementParent.offsetLeft = 3;
-
-                position = anOverlay._getElementPosition(anElement);
-                expect(position.top).toBe(102);
-                expect(position.left).toBe(203);
-            });
         });
 
         describe("anchor position", function() {
@@ -75,6 +46,7 @@ describe("ui/overlay-spec", function() {
                 anOverlay.anchor = anAnchor;
                 anOverlay.element.offsetWidth = 50;
                 anOverlay.element.offsetHeight = 100;
+                anOverlay._calculateOwnBoundingRect();
                 anOverlay._calculatePosition();
 
                 expect(anOverlay._drawPosition).toEqual({left: 225, top: 200});
@@ -91,6 +63,7 @@ describe("ui/overlay-spec", function() {
                 anOverlay.anchor = anAnchor;
                 anOverlay.element.offsetWidth = 110;
                 anOverlay.element.offsetHeight = 100;
+                anOverlay._calculateOwnBoundingRect();
                 anOverlay._calculatePosition();
 
                 expect(anOverlay._drawPosition).toEqual({left: 0, top: 200});
@@ -133,14 +106,6 @@ describe("ui/overlay-spec", function() {
             anOverlay.draw();
 
             expect(anOverlay._isDisplayed).toBe(true);
-        });
-    });
-
-    describe("enterDocument", function() {
-        it("should move the element to be a child of the body", function() {
-            anOverlay.enterDocument(true);
-
-            expect(anOverlay.element.ownerDocument.body.childNodes).toContain(anOverlay.element);
         });
     });
 
@@ -205,13 +170,14 @@ describe("ui/overlay-spec", function() {
             anOverlay._isShown = true;
             anOverlay.element.offsetWidth = 100;
             anOverlay.element.offsetHeight = 50;
+            anOverlay._calculateOwnBoundingRect();
             anOverlay._calculatePosition();
 
             anOverlay.draw();
 
             expect(anOverlay.element.style.visibility).toBe("visible");
-            expect(anOverlay.element.style.top).toBe("275px");
-            expect(anOverlay.element.style.left).toBe("300px");
+            expect(anOverlay.element.style.marginTop).toBe("275px");
+            expect(anOverlay.element.style.marginLeft).toBe("300px");
         });
 
         it("should be requested on window resize when shown", function() {
