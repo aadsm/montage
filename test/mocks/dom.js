@@ -114,6 +114,16 @@ exports.element = function (_document) {
             return !!(eventListeners[eventType] &&
                       eventListeners[eventType].indexOf(listener) >= 0);
         },
+        getBoundingClientRect: function() {
+            return {
+                height: this.offsetHeight || 0,
+                width: this.offsetWidth || 0,
+                top: this.offsetTop || 0,
+                left: this.offsetLeft || 0,
+                bottom: (this.offsetTop + this.offsetHeight) || 0,
+                right: (this.offsetLeft + this.offsetWidth) || 0
+            };
+        },
         ownerDocument: _document || exports.document(),
         tagName: "MOCK"
     };
