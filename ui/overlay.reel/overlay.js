@@ -272,9 +272,9 @@ exports.Overlay = Component.specialize( /** @lends module:Overlay# */ {
     _calculateAnchorPosition: {
         value: function() {
             var anchorElement = this.anchor instanceof Montage ? this.anchor.element : this.anchor,
-                width = this._ownBoundingRect.right - this._ownBoundingRect.left,
+                width = this._ownBoundingRect.width,
                 anchorBoundingRect = anchorElement.getBoundingClientRect(),
-                anchorWidth = anchorBoundingRect.right - anchorBoundingRect.left,
+                anchorWidth = anchorBoundingRect.width,
                 position;
 
             position = {
@@ -295,8 +295,8 @@ exports.Overlay = Component.specialize( /** @lends module:Overlay# */ {
             var _window = this.element.ownerDocument.defaultView,
                 viewportHeight = _window.innerHeight,
                 viewportWidth = _window.innerWidth,
-                height = this._ownBoundingRect.bottom - this._ownBoundingRect.top,
-                width = this._ownBoundingRect.right - this._ownBoundingRect.left;
+                height = this._ownBoundingRect.height,
+                width = this._ownBoundingRect.width;
 
             return {
                 top: (viewportHeight / 2 - (height / 2)),
