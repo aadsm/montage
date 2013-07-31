@@ -93,6 +93,10 @@ exports.Overlay = Component.specialize( /** @lends module:Overlay# */ {
         value: null
     },
 
+    _ownBoundingRect: {
+        value: null
+    },
+
     delegate: {
         value: null
     },
@@ -178,7 +182,7 @@ exports.Overlay = Component.specialize( /** @lends module:Overlay# */ {
             // Only calculate the position if the element is part of the layout,
             // otherwise it's not possible to measure the element.
             if (this._isDisplayed && this._isShown) {
-                this._ownBoundingRect = this.element.getBoundingClientRect();
+                this._calculateOwnBoundingRect();
                 this._calculatePosition();
             }
         }
@@ -223,6 +227,12 @@ exports.Overlay = Component.specialize( /** @lends module:Overlay# */ {
 
     _marginLeft: {
         value: 0
+    },
+
+    _calculateOwnBoundingRect: {
+        value: function() {
+            this._ownBoundingRect = this.element.getBoundingClientRect();
+        }
     },
 
     _reposition: {
