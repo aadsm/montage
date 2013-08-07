@@ -1013,6 +1013,7 @@ var Flow = exports.Flow = Component.specialize( {
     _updateVisibleIndexes: {
         value: function (newVisibleIndexes, newContentIndexes) {
             var oldVisibleIndexes = this._visibleIndexes,
+                offlineChanges = true,
                 oldIndexesLength = oldVisibleIndexes && !isNaN(oldVisibleIndexes.length) ? oldVisibleIndexes.length : 0,
                 holes = [],
                 j,
@@ -1043,19 +1044,60 @@ var Flow = exports.Flow = Component.specialize( {
                 }
             }
 
+            var debug = false,
+                startTime,
+                endTime,
+                setCount = 0;
+
+            if (debug) {
+                if (window.performance) {
+                    startTime = window.performance.now();
+                } else {
+                    startTime = Date.now();
+                }
+            }
+
             // Fill the holes
             for (i = j = 0; (j < holes.length) && (i < newVisibleIndexes.length); i++) {
                 if (newVisibleIndexes[i] !== null) {
-                    oldVisibleIndexes.set(holes[j], newVisibleIndexes[i]);
-                    j++;
+                    if (offlineChanges) {
+                        oldVisibleIndexes[holes[j]] = newVisibleIndexes[i];
+                    } else {
+                        oldVisibleIndexes.set(holes[j], newVisibleIndexes[i]);
+                    }
+
+                    k++;
+                    setCount++;
                 }
             }
             // Add new values to the end if the visible indexes have grown
             for (j = oldIndexesLength; i < newVisibleIndexes.length; i++) {
                 if (newVisibleIndexes[i] !== null) {
-                    oldVisibleIndexes.set(j,  newVisibleIndexes[i]);
-                    j++;
+                    if (offlineChanges) {
+                        oldVisibleIndexes[j] = newVisibleIndexes[j];
+                    } else {
+                        oldVisibleIndexes.set(j,  newVisibleIndexes[i]);
+                    }
+
+                    k++;
+                    setCount++;
                 }
+            }
+
+            if (offlineChanges && setCount > 0) {
+                //var args = [0, this._visibleIndexes.length].concat(oldVisibleIndexes);
+                //this._visibleIndexes.splice.apply(this._visibleIndexes, args);
+                this._visibleIndexes.swap(0, this._visibleIndexes.length, oldVisibleIndexes);
+            }
+
+            if (debug) {
+                if (window.performance) {
+                    endTime = window.performance.now();
+                } else {
+                    endTime = Date.now();
+                }
+
+                console.log("Flow _updateVisibleIndexes Time: ", endTime - startTime, setCount);
             }
 
             // Don't bother triming the excess. We just make them invisible and

@@ -1181,35 +1181,70 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
      */
     handleOrganizedContentRangeChange: {
         value: function (plus, minus, index) {
+            var startTime,
+                endTime,
+                debug = false;
 
-            // Subtract iterations
-            var freedIterations = this.iterations.splice(index, minus.length);
-            freedIterations.forEach(function (iteration) {
-                // Notify these iterations that they have been recycled,
-                // particularly so they know to disable animations with the
-                // "no-transition" CSS class.
-                iteration.recycle();
-            });
-            // Add them back to the free list so they can be reused
-            this._freeIterations.addEach(freedIterations);
-            // Create more iterations if we will need them
-            while (this._freeIterations.length < plus.length) {
-                this._freeIterations.push(this._createIteration());
+            if (debug) {
+                if (window.performance) {
+                    startTime = window.performance.now();
+                } else {
+                    startTime = Date.now();
+                }
             }
-            // Add iterations
-            this.iterations.swap(index, 0, plus.map(function (content, offset) {
-                var iteration = this._freeIterations.pop();
-                iteration.content = content;
-                // This updates the "repetition.contentAtCurrentIteration"
-                // bindings.
-                this._contentForIteration.set(iteration, content);
-                return iteration;
-            }, this));
-            // Update indexes for all subsequent iterations
-            this._updateIndexes(index);
 
-            this.needsDraw = true;
+            var iterations = this.iterations;
 
+            if (plus.length === minus.length) {
+                for (var i = 0; i < plus.length; i++, index++) {
+                    iterations[index].content = plus[i];
+                    this._contentForIteration.set(iterations[index], plus[i]);
+                }
+            } else {
+                // Subtract iterations
+                var freedIterations = this.iterations.splice(index, minus.length);
+
+                freedIterations.forEach(function (iteration) {
+                    // Notify these iterations that they have been recycled,
+                    // particularly so they know to disable animations with the
+                    // "no-transition" CSS class.
+                    iteration.recycle();
+                });
+
+                // Add them back to the free list so they can be reused
+                this._freeIterations.addEach(freedIterations);
+                // Create more iterations if we will need them
+                while (this._freeIterations.length < plus.length) {
+                    this._freeIterations.push(this._createIteration());
+                }
+
+
+                // Add iterations
+                this.iterations.swap(index, 0, plus.map(function (content, offset) {
+                    var iteration = this._freeIterations.pop();
+
+                    iteration.content = content;
+                    // This updates the "repetition.contentAtCurrentIteration"
+                    // bindings.
+                    this._contentForIteration.set(iteration, content);
+                    return iteration;
+                }, this));
+
+                // Update indexes for all subsequent iterations
+                this._updateIndexes(index);
+                this.needsDraw = true;
+            }
+
+            if (debug) {
+                if (window.performance) {
+                    endTime = window.performance.now();
+                } else {
+                    endTime = Date.now();
+                }
+
+                console.log("handleOrganizedContentRangeChange Time: ",
+                    endTime - startTime);
+            }
         }
     },
 

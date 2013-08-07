@@ -51,6 +51,8 @@ var Montage = require("montage").Montage,
     defaultEventManager = require("core/event/event-manager").defaultEventManager,
     Set = require("collections/set");
 
+drawPerformanceLogger.isDebug = true;
+
 /**
  * @requires montage/ui/component-description
  */
@@ -3015,9 +3017,15 @@ var RootComponent = Component.specialize( /** @lends RootComponent# */{
                             var drawPerformanceEndTime = Date.now();
                         }
 
-                        console.log("Draw Cycle Time: ",
-                            drawPerformanceEndTime - drawPerformanceStartTime,
-                            ", Components: ", self._lastDrawComponentsCount);
+                        window.Count = window.Count || 0;
+
+                        if (drawPerformanceEndTime - drawPerformanceStartTime > 16) {
+                            document.title = ++window.Count + " " + (drawPerformanceEndTime - drawPerformanceStartTime);
+                        }
+
+                        //console.log("Draw Cycle Time: ",
+                        //    drawPerformanceEndTime - drawPerformanceStartTime,
+                        //    ", Components: ", self._lastDrawComponentsCount);
                     }
 
                     if (drawLogger.isDebug) {
