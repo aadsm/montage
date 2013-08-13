@@ -1066,7 +1066,6 @@ var Flow = exports.Flow = Component.specialize( {
                         oldVisibleIndexes.set(holes[j], newVisibleIndexes[i]);
                     }
 
-                    k++;
                     setCount++;
                 }
             }
@@ -1074,12 +1073,11 @@ var Flow = exports.Flow = Component.specialize( {
             for (j = oldIndexesLength; i < newVisibleIndexes.length; i++) {
                 if (newVisibleIndexes[i] !== null) {
                     if (offlineChanges) {
-                        oldVisibleIndexes[j] = newVisibleIndexes[j];
+                        oldVisibleIndexes[j] = newVisibleIndexes[i];
                     } else {
                         oldVisibleIndexes.set(j,  newVisibleIndexes[i]);
                     }
 
-                    k++;
                     setCount++;
                 }
             }
