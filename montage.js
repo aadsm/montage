@@ -651,7 +651,8 @@ if (typeof window !== "undefined") {
                 "core/core",
                 "core/event/event-manager",
                 "core/serialization/deserializer/montage-reviver",
-                "core/logger"
+                "core/logger",
+                "debug/chrome-inspector-connector"
             ];
 
             var Promise = montageRequire("core/promise").Promise;
@@ -664,7 +665,8 @@ if (typeof window !== "undefined") {
                 var Montage = montageRequire("core/core").Montage;
                 var EventManager = montageRequire("core/event/event-manager").EventManager;
                 var MontageReviver = montageRequire("core/serialization/deserializer/montage-reviver").MontageReviver;
-                var logger = montageRequire("core/logger").logger
+                var logger = montageRequire("core/logger").logger;
+                var ChromeInspectorConnector = montageRequire("debug/chrome-inspector-connector").ChromeInspectorConnector;
 
                 var defaultEventManager, application;
 
@@ -691,6 +693,9 @@ if (typeof window !== "undefined") {
                 } else {
                     appModulePromise = montageRequire.async("core/application");
                 }
+
+                // Load the chrome inspector connector
+                new ChromeInspectorConnector().init();
 
                 return appModulePromise.then(function(exports) {
                     var Application = exports[(applicationLocation ? applicationLocation.objectName : "Application")];

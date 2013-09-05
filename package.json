@@ -26,7 +26,8 @@
     "collections": "~0.1.23",
     "frb": "~0.2.11",
     "mousse": "~0.1.2",
-    "htmlparser2": "~3.0.5"
+    "htmlparser2": "~3.0.5",
+    "q-connection": "~0.5.5"
   },
   "devDependencies": {
     "montage-testing": "~0.2.0",
