@@ -1,11 +1,5 @@
-var querySelector = function(e){return document.querySelector(e);}
+var TestController = require("montage-testing/test-controller").TestController;
 
-var Montage = require("montage").Montage;
-var Component = require("montage/ui/component").Component;
+exports.AlternationTest = TestController.specialize( {
 
-exports.AlternationTest = Montage.specialize( {
-    listener: {value: function() {
-
-    }},
-    simpleArrayController: {value: null}
 });

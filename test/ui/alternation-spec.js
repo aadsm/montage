@@ -19,19 +19,45 @@ TestPageLoader.queueTest("alternation/alternation", function(testPage) {
 
         describe("switchPath property", function() {
             it("should only draw DOM elements that match switchPath", function() {
-                var element = querySelector(".alternationSwitchPath");
+                var element = testPage.querySelector(".alternationSwitchPath");
                 expect(element).toBeDefined();
                 expect(element.textContent).toBe("PASS");
             });
 
             it("should iterate through content", function() {
-                var admin = querySelector("#switch-path-admin");
-                var user = querySelector("#switch-path-user");
-                expect(admin.textContent).toBe("John");
-                expect(user.textContent).toBe("Mary");
+                var component = testPage.test.templateObjects.switchPathIteration.templateObjects.alternation;
+
+                component.content = [
+                    {"name": "John", "isAdmin": true},
+                    {"name": "Mary", "isAdmin": false}
+                ];
+
+                testPage.waitForComponentDraw(component);
+                runs(function() {
+                    var admin = testPage.querySelector("#switch-path-admin");
+                    var user = testPage.querySelector("#switch-path-user");
+
+                    expect(admin).toBeDefined();
+                    expect(user).toBeDefined();
+                    expect(admin.textContent).toBe("John");
+                    expect(user.textContent).toBe("Mary");
+                });
             });
         });
+        describe("iterations", function() {
+            it("should use the right template when an iteration is reused", function() {
+                var component = testPage.test.templateObjects.switchPathIteration.templateObjects.alternation;
 
+                component.content.pop();
+                component.content.push({"name": "Louis", "isAdmin": true});
 
+                testPage.waitForComponentDraw(component);
+                runs(function() {
+                    var admins = testPage.querySelectorAll("#switch-path-admin");
+                    expect(admins.length).toBe(2);
+                });
+            });
+
+        })
     });
 });

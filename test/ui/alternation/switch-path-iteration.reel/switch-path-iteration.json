@@ -9,11 +9,7 @@
         "prototype": "montage/ui/alternation.reel",
         "properties": {
             "element": {"#": "alternation"},
-            "switchPath": "object.isAdmin ? 'admin' : 'user'",
-            "content": [
-                {"name": "John", "isAdmin": true},
-                {"name": "Mary", "isAdmin": false}
-            ]
+            "switchPath": "object.isAdmin ? 'admin' : 'user'"
         }
     },
 
