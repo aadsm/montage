@@ -39,6 +39,16 @@ exports.Alternation = Repetition.specialize( /** @lends Alternation# */ {
         value: null
     },
 
+    _getIteration: {
+        value: function(content, index) {
+            var iteration = this.super(content, index);
+
+            iteration.addPathChangeListener(this.switchPath, this.handleIterationSwitchValueChange);
+
+            return iteration;
+        }
+    },
+
     _createIteration: {
         value: function(content, index) {
             var iteration = new this.Iteration().initWithRepetition(this),
@@ -53,15 +63,6 @@ exports.Alternation = Repetition.specialize( /** @lends Alternation# */ {
             this._instantiateIterationTemplate(iteration, iterationTemplate);
 
             return iteration;
-        }
-    },
-
-    _getSwitchValue: {
-        value: function(content, index) {
-            return Montage.getPath.call({
-                object: content,
-                index: index
-            }, this.switchPath);
         }
     },
 
@@ -86,13 +87,34 @@ exports.Alternation = Repetition.specialize( /** @lends Alternation# */ {
         }
     },
 
+    _getSwitchValue: {
+        value: function(content, index) {
+            return Montage.getPath.call({
+                object: content,
+                index: index
+            }, this.switchPath);
+        }
+    },
+
     _recycleIteration: {
         value: function(iteration) {
             var switchValue = iteration.switchValue;
 
+            iteration.removePathChangeListener(this.switchPath, this.handleIterationSwitchValueChange);
             iteration.recycle();
             // Add it back to the free list so it can be reused.
             this._freeAlternationIterations[switchValue].push(iteration);
+        }
+    },
+
+    handleIterationSwitchValueChange: {
+        value: function(value, key, object) {
+            if (object.switchValue !== value) {
+                // Implement this as a simulation of content being changed, we
+                // indicate that we removed and added the same content.
+                var data = [object.content];
+                object.repetition.handleOrganizedContentRangeChange(data, data, object.index);
+            }
         }
     },
 

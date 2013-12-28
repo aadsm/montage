@@ -58,6 +58,17 @@ TestPageLoader.queueTest("alternation/alternation", function(testPage) {
                 });
             });
 
+            it("should change template when the switchPath evaluation changes", function() {
+                var component = testPage.test.templateObjects.switchPathIteration.templateObjects.alternation;
+
+                component.content[1].isAdmin = false;
+
+                testPage.waitForComponentDraw(component);
+                runs(function() {
+                    var admins = testPage.querySelectorAll("#switch-path-user");
+                    expect(admins.length).toBe(1);
+                });
+            });
         })
     });
 });
