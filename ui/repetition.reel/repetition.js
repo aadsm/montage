@@ -926,12 +926,7 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
             // prepare all the free iterations and their child component trees
             // for garbage collection
             for (var i = 0; i < this._freeIterations.length; i++) {
-                var iteration = this._freeIterations[i];
-                for (var j = 0; j < iteration._childComponents.length; j++) {
-                    var childComponent = iteration._childComponents[j];
-                    this.removeChildComponent(childComponent);
-                    childComponent.cleanupDeletedComponentTree(true); // true cancels bindings
-                }
+                this._teardownFreeIteration(this._freeIterations[i]);
             }
 
             // purge the existing iterations
@@ -947,6 +942,16 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
             this._selectionPointer = null;
             this.activeIterations.clear();
             this._dirtyClassListIterations.clear();
+        }
+    },
+
+    _teardownFreeIteration: {
+        value: function(iteration) {
+            for (var j = 0; j < iteration._childComponents.length; j++) {
+                var childComponent = iteration._childComponents[j];
+                this.removeChildComponent(childComponent);
+                childComponent.cleanupDeletedComponentTree(true); // true cancels bindings
+            }
         }
     },
 
@@ -1031,18 +1036,66 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
     _iterationCreationPromise: {value: null},
 
     /**
-     * Creates a new iteration and sets up a new instance of the iteration
-     * template.  Ensures that only one iteration is being instantiated at a
-     * time to guarantee that `currentIteration` can be reliably bound to the
-     * particular iteration.
+     * Creates a new iteration or reuses a previously freed iteration and
+     * sets it up with the given content.
+     * It sets the iteration returned with the content and the index given.
+     *
      * @private
+     * @param content {Object} The iteration content.
+     * @return {Iteration} The iteration with the content and index set.
+     */
+    _getIteration: {
+        value: function(content, index) {
+            var iteration = this._getFreeIteration(content, index);
+
+            if (!iteration) {
+                iteration = this._createIteration(content, index);
+            }
+
+            return iteration;
+        }
+    },
+
+    /**
+     * Creates a new iteration and sets up a new instance of the iteration
+     * template.
      */
     _createIteration: {
-        value: function () {
-            var self = this,
-                iteration;
+        value: function(content, index) {
+            var iteration = new this.Iteration().initWithRepetition(this);
 
-            iteration = new this.Iteration().initWithRepetition(this);
+            iteration.content = content;
+            iteration.index = index;
+            this._instantiateIterationTemplate(iteration, this._iterationTemplate);
+
+            return iteration;
+        }
+    },
+
+    _getFreeIteration: {
+        value: function(content, index) {
+            var iteration;
+
+            if (this._freeIterations.length > 0) {
+                iteration = this._freeIterations.pop();
+                iteration.content = content;
+                iteration.index = index;
+                return iteration;
+            } else {
+                return null;
+            }
+        }
+    },
+
+    /**
+     * Sets up a new instance of the iteration template.  Ensures that only one
+     * iteration is being instantiated at a time to guarantee that
+     * `currentIteration` can be reliably bound to the particular iteration.
+     * @private
+     */
+    _instantiateIterationTemplate: {
+        value: function (iteration, iterationTemplate) {
+            var self = this;
 
             this._iterationCreationPromise = this._iterationCreationPromise
             .then(function() {
@@ -1055,11 +1108,11 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
                 // We need to extend the instances of the template to add the
                 // iteration object that is specific to each iteration template
                 // instance.
-                instances = self._iterationTemplate.getInstances();
+                instances = iterationTemplate.getInstances();
                 instances = Object.create(instances);
                 instances[self._iterationLabel] = iteration;
 
-                promise = self._iterationTemplate.instantiateWithInstances(instances, _document)
+                promise = iterationTemplate.instantiateWithInstances(instances, _document)
                 .then(function (part) {
                     part.loadComponentTree().then(function() {
                         iteration._fragment = part.fragment;
@@ -1084,14 +1137,13 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
             });
 
             this._requestedIterations++;
-            return iteration;
         }
     },
 
     /**
      * @private
      */
-    // This utility method for the completion of _createIteration.
+    // This utility method for the completion of _instantiateIterationTemplate.
     constructIteration: {
         value: function (iteration) {
             this._createdIterations++;
@@ -1226,35 +1278,34 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
      */
     handleOrganizedContentRangeChange: {
         value: function (plus, minus, index) {
-
             // Subtract iterations
             var freedIterations = this.iterations.splice(index, minus.length);
-            freedIterations.forEach(function (iteration) {
-                // Notify these iterations that they have been recycled,
-                // particularly so they know to disable animations with the
-                // "no-transition" CSS class.
-                iteration.recycle();
-            });
-            // Add them back to the free list so they can be reused
-            this._freeIterations.addEach(freedIterations);
-            // Create more iterations if we will need them
-            while (this._freeIterations.length < plus.length) {
-                this._freeIterations.push(this._createIteration());
-            }
+            freedIterations.forEach(this._recycleIteration, this);
+
             // Add iterations
             this.iterations.swap(index, 0, plus.map(function (content, offset) {
-                var iteration = this._freeIterations.pop();
-                iteration.content = content;
+                var iteration = this._getIteration(content, index + offset);
                 // This updates the "repetition.contentAtCurrentIteration"
                 // bindings.
                 this._contentForIteration.set(iteration, content);
                 return iteration;
             }, this));
             // Update indexes for all subsequent iterations
-            this._updateIndexes(index);
+            this._updateIndexes(index + plus.length);
 
             this.needsDraw = true;
 
+        }
+    },
+
+    _recycleIteration: {
+        value: function(iteration) {
+            // Notify these iterations that they have been recycled,
+            // particularly so they know to disable animations with the
+            // "no-transition" CSS class.
+            iteration.recycle();
+            // Add it back to the free list so it can be reused.
+            this._freeIterations.push(iteration);
         }
     },
 
@@ -1344,15 +1395,15 @@ var Repetition = exports.Repetition = Component.specialize(/** @lends Repetition
     _dirtyClassListIterations: {value: null},
 
     /**
-     * The cumulative number of iterations that _createIteration has started
+     * The cumulative number of iterations that _instantiateIterationTemplate has started
      * making.
      * @private
      */
     _requestedIterations: {value: null},
 
     /**
-     * The cumulative number of iterations that _createIteration has finished
-     * making.
+     * The cumulative number of iterations that _instantiateIterationTemplate
+     * has finished making.
      * @private
      */
     _createdIterations: {value: null},
