@@ -1515,13 +1515,13 @@ var TemplateResources = Montage.specialize( /** @lends TemplateResources# */ {
 
             for (var i = 0, style; (style = styles[i]); i++) {
                 url = style.getAttribute("href");
-                newStyle = targetDocument.importNode(style, true);
-                stylesForDocument.push(newStyle);
-
                 if (url) {
                     normalizedUrl = documentResources.normalizeUrl(url, baseUrl);
-                    newStyle.setAttribute("href", normalizedUrl);
+                    style.setAttribute("href", normalizedUrl);
                 }
+
+                newStyle = targetDocument.importNode(style, true);
+                stylesForDocument.push(newStyle);
             }
 
             return stylesForDocument;
